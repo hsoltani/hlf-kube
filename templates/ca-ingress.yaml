@@ -1,3 +1,4 @@
+{{- if .Values.ca.ingress.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -23,3 +24,4 @@ spec:
     - hlf-ca-{{ $org.Name | lower }}.{{ $.Values.ingress.parentDomain }}
 {{- end }}
     secretName: hlf-ca--ingress-tls
+{{- end }} {{- /* if ingress.enabled */ -}}
