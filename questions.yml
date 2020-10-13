@@ -42,3 +42,22 @@ questions:
   type: string
   group: "Network"
   
+  
+- variable: network.chaincodes[0].name
+  default: very-simple
+  description: "defines which chaincodes will be installed to which organizations"
+  label: chaincodes name
+  type: string
+  group: "Network"
+- variable: network.chaincodes[0].orgs
+  default: [Karga, Nevergreen, Atlantis]
+  description: "chaincode will be installed to all peers in these organizations"
+  label: chaincodes orgs
+  type: string
+  group: "Network"
+- variable: network.chaincodes[0].channels[0].name
+  default: common
+  description: "at which channels are we instantiating/upgrading chaincode?"
+  label: chaincodes channels name
+  type: string
+  group: "Network"
