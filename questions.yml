@@ -192,5 +192,96 @@ questions:
   type: string
   group: "OrdererOrgs"
   
+- variable: PeerOrgs[0].Name
+  default: Karga
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Name
+  type: string
+  group: "PeerOrgs"
+- variable: PeerOrgs[0].Domain
+  default: aptalkarga.tr
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Domain
+  type: string
+  group: "PeerOrgs"
+- variable: PeerOrgs[0].EnableNodeOUs
+  default: true
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs EnableNodeOUs
+  type: boolean
+  group: "PeerOrgs"
+- variable: PeerOrgs[0].Template[0].Count
+  default: 1
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Template Count
+  type: int
+  group: "PeerOrgs"
+- variable: PeerOrgs[0].Users[0].Count
+  default: 1
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Users Count
+  type: int
+  group: "PeerOrgs"
   
   
+- variable: PeerOrgs[1].Name
+  default: Nevergreen
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Name
+  type: string
+  group: "PeerOrgs"
+- variable: PeerOrgs[1].Domain
+  default: nevergreen.nl
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Domain
+  type: string
+  group: "PeerOrgs"
+- variable: PeerOrgs[1].EnableNodeOUs
+  default: true
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs EnableNodeOUs
+  type: boolean
+  group: "PeerOrgs"
+- variable: PeerOrgs[1].Template[0].Count
+  default: 1
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Template Count
+  type: int
+  group: "PeerOrgs"
+- variable: PeerOrgs[1].Users[0].Count
+  default: 1
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Users Count
+  type: int
+  group: "PeerOrgs"
+
+- variable: PeerOrgs[2].Name
+  default: Atlantis
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Name
+  type: string
+  group: "PeerOrgs"
+- variable: PeerOrgs[2].Domain
+  default: atlantis.com
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Domain
+  type: string
+  group: "PeerOrgs"
+- variable: PeerOrgs[2].EnableNodeOUs
+  default: true
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs EnableNodeOUs
+  type: boolean
+  group: "PeerOrgs"
+- variable: PeerOrgs[2].Template[0].Count
+  default: 1
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Template Count
+  type: int
+  group: "PeerOrgs"
+- variable: PeerOrgs[2].Users[0].Count
+  default: 1
+  description: "Definition of organizations managing peer nodes"
+  label:  PeerOrgs Users Count
+  type: int
+  group: "PeerOrgs"
