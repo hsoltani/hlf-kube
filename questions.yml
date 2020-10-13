@@ -1,0 +1,31 @@
+labels:
+  io.cattle.role: cluster # options are cluster/project
+  io.rancher.app_min_version: 7.3.8
+categories:
+- Blog
+- CMS
+questions:
+- variable: network.genesisProfile
+  default: OrdererGenesis
+  description: "used by init script to create genesis block and by peer-org-flow to parse consortiums"
+  label: genesisProfile
+  type: string
+  group: "Network"
+- variable: network.systemChannelID
+  default: testchainid
+  description: "used by init script to create genesis block"
+  label: systemChannelID
+  type: string
+  group: "Network"
+- variable: network.channels[0].name
+  default: common
+  description: "defines which organizations will join to which channels"
+  label: channels name
+  type: string
+  group: "Network"
+- variable: network.channels[0].orgs
+  default: [Karga, Nevergreen, Atlantis]
+  description: "all peers in these organizations will join the channel"
+  label: channels orgs
+  type: string
+  group: "Network"
