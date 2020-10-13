@@ -54,7 +54,7 @@ questions:
   label: channels orgs
   type: string
   group: "Network"
-  - variable: network.channels[1].orgs[1]
+- variable: network.channels[1].orgs[1]
   default: Atlantis
   description: "all peers in these organizations will join the channel"
   label: channels orgs
