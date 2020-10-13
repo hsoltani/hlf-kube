@@ -164,3 +164,33 @@ questions:
   label: chaincodes channels policy
   type: string
   group: "Network"
+  
+  
+  
+- variable: OrdererOrgs[0].Name
+  default: Groeifabriek
+  description: "Definition of organizations managing orderer nodes"
+  label:  OrdererOrgs Name
+  type: string
+  group: "OrdererOrgs"
+- variable: OrdererOrgs[0].Domain
+  default: groeifabriek.nl
+  description: "Definition of organizations managing orderer nodes"
+  label:  OrdererOrgs Domain
+  type: string
+  group: "OrdererOrgs"
+- variable: OrdererOrgs[0].EnableNodeOUs
+  default: true
+  description: "Definition of organizations managing orderer nodes"
+  label:  OrdererOrgs EnableNodeOUs
+  type: boolean
+  group: "OrdererOrgs"
+- variable: OrdererOrgs[0].Specs[0].Hostname
+  default: orderer0
+  description: "Definition of organizations managing orderer nodes"
+  label:  OrdererOrgs Specs Hostname
+  type: string
+  group: "OrdererOrgs"
+  
+  
+  
