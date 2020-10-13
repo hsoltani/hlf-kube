@@ -23,20 +23,39 @@ questions:
   label: channels name
   type: string
   group: "Network"
-- variable: network.channels[0].orgs
-  default: "[Karga, Nevergreen, Atlantis]"
+- variable: network.channels[0].orgs[0]
+  default: Karga
   description: "all peers in these organizations will join the channel"
   label: channels orgs
   type: string
   group: "Network"
+- variable: network.channels[0].orgs[1]
+  default: Nevergreen
+  description: "all peers in these organizations will join the channel"
+  label: channels orgs
+  type: string
+  group: "Network"
+- variable: network.channels[0].orgs[2]
+  default: Atlantis
+  description: "all peers in these organizations will join the channel"
+  label: channels orgs
+  type: string
+  group: "Network"
+  
 - variable: network.channels[1].name
   default: private-karga-atlantis
   description: "defines which organizations will join to which channels"
   label: channels name
   type: string
   group: "Network"
-- variable: network.channels[1].orgs
-  default: "[Karga, Atlantis]"
+- variable: network.channels[1].orgs[0]
+  default: Karga
+  description: "all peers in these organizations will join the channel"
+  label: channels orgs
+  type: string
+  group: "Network"
+  - variable: network.channels[1].orgs[1]
+  default: Atlantis
   description: "all peers in these organizations will join the channel"
   label: channels orgs
   type: string
@@ -49,8 +68,20 @@ questions:
   label: chaincodes name
   type: string
   group: "Network"
-- variable: network.chaincodes[0].orgs
-  default: "[Karga, Nevergreen, Atlantis]"
+- variable: network.chaincodes[0].orgs[0]
+  default: Karga
+  description: "chaincode will be installed to all peers in these organizations"
+  label: chaincodes orgs
+  type: string
+  group: "Network"
+- variable: network.chaincodes[0].orgs[1]
+  default: Nevergreen
+  description: "chaincode will be installed to all peers in these organizations"
+  label: chaincodes orgs
+  type: string
+  group: "Network"
+- variable: network.chaincodes[0].orgs[2]
+  default: Atlantis
   description: "chaincode will be installed to all peers in these organizations"
   label: chaincodes orgs
   type: string
@@ -61,12 +92,24 @@ questions:
   label: chaincodes channels name
   type: string
   group: "Network"
-- variable: network.chaincodes[0].channels[0].orgs
-  default: "[Karga, Nevergreen, Atlantis]"
+- variable: network.chaincodes[0].channels[0].orgs[0]
+  default: Karga
   description: "chaincode will be invoked on all peers in these organizations"
   label: chaincodes channels orgs
   type: string
-  group: "Network"  
+  group: "Network" 
+- variable: network.chaincodes[0].channels[0].orgs[1]
+  default: Nevergreen
+  description: "chaincode will be invoked on all peers in these organizations"
+  label: chaincodes channels orgs
+  type: string
+  group: "Network"
+- variable: network.chaincodes[0].channels[0].orgs[2]
+  default: Atlantis
+  description: "chaincode will be invoked on all peers in these organizations"
+  label: chaincodes channels orgs
+  type: string
+  group: "Network"
 - variable: network.chaincodes[0].channels[0].policy
   default: OR('KargaMSP.member','NevergreenMSP.member','AtlantisMSP.member')
   description: "chaincode will be invoked on all peers in these organizations"
@@ -85,8 +128,14 @@ questions:
   label: chaincodes language
   type: string
   group: "Network"
-- variable: network.chaincodes[1].orgs
-  default: "[Karga, Atlantis]"
+- variable: network.chaincodes[1].orgs[0]
+  default: Karga
+  description: "chaincode will be installed to all peers in these organizations"
+  label: chaincodes orgs
+  type: string
+  group: "Network"
+- variable: network.chaincodes[1].orgs[1]
+  default: Atlantis
   description: "chaincode will be installed to all peers in these organizations"
   label: chaincodes orgs
   type: string
@@ -97,8 +146,14 @@ questions:
   label: chaincodes channels name
   type: string
   group: "Network"
-- variable: network.chaincodes[0].channels[0].orgs
-  default: "[Karga, Atlantis]"
+- variable: network.chaincodes[0].channels[0].orgs[0]
+  default: Karga
+  description: "chaincode will be invoked on all peers in these organizations"
+  label: chaincodes channels orgs
+  type: string
+  group: "Network"  
+- variable: network.chaincodes[0].channels[0].orgs[1]
+  default: Atlantis
   description: "chaincode will be invoked on all peers in these organizations"
   label: chaincodes channels orgs
   type: string
