@@ -24,7 +24,7 @@ questions:
   type: string
   group: "Network"
 - variable: network.channels[0].orgs
-  default: [Karga, Nevergreen, Atlantis]
+  default: "[Karga, Nevergreen, Atlantis]"
   description: "all peers in these organizations will join the channel"
   label: channels orgs
   type: string
@@ -36,7 +36,7 @@ questions:
   type: string
   group: "Network"
 - variable: network.channels[1].orgs
-  default: [Karga, Atlantis]
+  default: "[Karga, Atlantis]"
   description: "all peers in these organizations will join the channel"
   label: channels orgs
   type: string
