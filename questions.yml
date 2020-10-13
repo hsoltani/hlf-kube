@@ -29,3 +29,16 @@ questions:
   label: channels orgs
   type: string
   group: "Network"
+- variable: network.channels[1].name
+  default: private-karga-atlantis
+  description: "defines which organizations will join to which channels"
+  label: channels name
+  type: string
+  group: "Network"
+- variable: network.channels[1].orgs
+  default: [Karga, Atlantis]
+  description: "all peers in these organizations will join the channel"
+  label: channels orgs
+  type: string
+  group: "Network"
+  
