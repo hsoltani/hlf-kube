@@ -23,7 +23,7 @@ spec:
       containers:
       - name: {{ template "explorer.fullname" . }}
         image: {{ template "explorer.image" . }}
-        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        imagePullPolicy: {{ .Values.explorer.image.pullPolicy | quote }}
         env:
         - name: POSTGRESQL_HOST
           value: odoo-postgresql
@@ -32,12 +32,12 @@ spec:
         - name: POSTGRESQL_USER
           value: hppoc
         - name: POSTGRESQL_PORT_NUMBER
-          value: {{ ternary "5432" .Values.externalDatabase.port .Values.postgresql.enabled | quote }}
+          value: {{ ternary "5432" .Values.explorer.externalDatabase.port .Values.explorer.postgresql.enabled | quote }}
         - name: POSTGRESQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ ternary (include "explorer.postgresql.fullname" .) (printf "%s-%s" .Release.Name "externaldb") .Values.postgresql.enabled | quote }}
-              key: {{ ternary "postgresql-password" "db-password" .Values.postgresql.enabled | quote }}
+              name: {{ ternary (include "explorer.postgresql.fullname" .) (printf "%s-%s" .Release.Name "externaldb") .Values.explorer.postgresql.enabled | quote }}
+              key: {{ ternary "postgresql-password" "db-password" .Values.explorer.postgresql.enabled | quote }}
         - name: POSTGRES_DB
           value: fabricexplorer
         - name: DATABASE_HOST
@@ -76,22 +76,22 @@ spec:
           httpGet:
             path: /
             port: http
-          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-          successThreshold: {{ .Values.livenessProbe.successThreshold }}
-          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+          initialDelaySeconds: {{ .Values.explorer.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.explorer.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.explorer.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.explorer.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.explorer.livenessProbe.failureThreshold }}
         {{- end }}
-        {{- if .Values.readinessProbe.enabled }}
+        {{- if .Values.explorer.readinessProbe.enabled }}
         readinessProbe:
           httpGet:
             path: /
             port: http
-          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-          successThreshold: {{ .Values.readinessProbe.successThreshold }}
-          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+          initialDelaySeconds: {{ .Values.explorer.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.explorer.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.explorer.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.explorer.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.explorer.readinessProbe.failureThreshold }}
         {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
