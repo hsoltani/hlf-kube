@@ -71,7 +71,7 @@ spec:
         ports:
         - name: http
           containerPort: 8080
-        {{- if .Values.livenessProbe.enabled }}
+        {{- if .Values.explorer.livenessProbe.enabled }}
         livenessProbe:
           httpGet:
             path: /
@@ -94,7 +94,7 @@ spec:
           failureThreshold: {{ .Values.explorer.readinessProbe.failureThreshold }}
         {{- end }}
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+{{ toYaml .Values.explorer.resources | indent 10 }}
         volumeMounts:
         - name: explorer-data
           mountPath: /bitnami/explorer
@@ -146,13 +146,13 @@ spec:
         configMap:
           name: {{ template "explorer.fullname" . }}-cryptoca4
       - name: explorer-data
-      {{- if .Values.persistence.enabled }}
+      {{- if .Values.explorer.persistence.enabled }}
         persistentVolumeClaim:
-          claimName: {{ .Values.persistence.existingClaim | default (include "explorer.fullname" .) }}
+          claimName: {{ .Values.explorer.persistence.existingClaim | default (include "explorer.fullname" .) }}
       {{- else }}
         emptyDir: {}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- with .Values.explorer.affinity }}
       affinity:
 {{ toYaml . | indent 8 }}
       {{- end }}
