@@ -1,39 +1,50 @@
-{{ if .Values.backup.enabled }}
 
-HL Fabric network is now prepared for backup!
+** Please be patient while the chart is being deployed **
 
-Wait for all pods are up and running then run the backup Argo flow!
-After that is completed, make another Helm upgrade to return back to normal operation.
+{{- if .Values.ingress.enabled }}
 
-{{- if (index .Values "hlf-kafka").enabled }}
+1. Get the explorer URL indicated on the Ingress Rule and associate it to your cluster external IP:
 
-IMPORTANT: Looks like you are using Kafka Orderer. 
-In this case you also need to manually backup Kafka cluster!
+   export CLUSTER_IP=$(minikube ip) # On Minikube. Use: `kubectl cluster-info` on others K8s clusters
+   export HOSTNAME=$(kubectl get ingress --namespace {{ .Release.Namespace }} {{ template "explorer.fullname" . }} -o jsonpath='{.spec.rules[0].host}')
+   echo "Explorer URL: http://$HOSTNAME/"
+   echo "$CLUSTER_IP  $HOSTNAME" | sudo tee -a /etc/hosts
 
-{{- end}}
+{{- else }}
 
-{{ else if .Values.restore.enabled }}
+1. Get the explorer URL by runningg:
 
-HL Fabric network is now prepared for restore!
+{{- if contains "NodePort" .Values.service.type }}
 
-Wait for all pods are up and running then run the restore Argo flow!
-After that is completed, make another Helm upgrade to return back to normal operation.
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ template "explorer.fullname" . }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo "Explorer URL: http://$NODE_IP:$NODE_PORT/"
 
-{{- if (index .Values "hlf-kafka").enabled }}
+{{- else if contains "LoadBalancer" .Values.service.type }}
 
-IMPORTANT: Looks like you are using Kafka Orderer. 
-In this case you also need to manually restore Kafka cluster!
+** Please ensure an external IP is associated to the {{ template "explorer.fullname" . }} service before proceeding **
+** Watch the status using: kubectl get svc --namespace {{ .Release.Namespace }} -w {{ template "explorer.fullname" . }} **
 
-{{- end}}
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "explorer.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
 
-{{ else }}
+{{- $port:=.Values.service.port | toString }}
+  echo "explorer URL: http://$SERVICE_IP{{- if ne $port "80" }}:{{ .Values.service.port }}{{ end }}/"
+{{- else if contains "ClusterIP"  .Values.service.type }}
 
-Happy BlockChaining :)
+  echo "explorer URL: http://127.0.0.1:8080/"
+  kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ template "explorer.fullname" . }} 8080:{{ .Values.service.port }}
 
-And don't forget the first rule of BlockChain club:
+{{- end }}
+{{- end }}
 
-"Do not use BlockChain unless absolutely necessary!"
+2. Login with the following credentials
 
-                                            r a f t
+  
+  echo Password: $(kubectl get secret --namespace {{ .Release.Namespace }} {{ template "explorer.fullname" . }} -o jsonpath="{.data.explorer-password}" | base64 --decode)
 
-{{- end }}                                            
+{{- if and (contains "bitnami/" .Values.image.repository) (not (.Values.image.tag | toString | regexFind "-r\\d+$|sha256:")) }}
+
+WARNING: Rolling tag detected ({{ .Values.image.repository }}:{{ .Values.image.tag }}), please note that it is strongly recommended to avoid using rolling tags in a production environment.
++info https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/
+
+{{- end }}
