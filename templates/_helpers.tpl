@@ -3,7 +3,7 @@
 Expand the name of the chart.
 */}}
 {{- define "explorer.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- default .Chart.Name .Values.explorer.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -100,7 +100,7 @@ but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else 
 */}}
 {{- if .Values.explorer.global -}}
     {{- if .Values.explorer.global.storageClass -}}
-        {{- if (eq "-" .explorer.Values.global.storageClass) -}}
+        {{- if (eq "-" .Values.explorer.global.storageClass) -}}
             {{- printf "storageClassName: \"\"" -}}
         {{- else }}
             {{- printf "storageClassName: %s" .Values.explorer.global.storageClass -}}
