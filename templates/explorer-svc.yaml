@@ -8,19 +8,19 @@ metadata:
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
 spec:
-  type: {{ .Values.service.type }}
-  {{- if (and (eq .Values.service.type "LoadBalancer") (not (empty .Values.service.loadBalancerIP))) }}
-  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  type: {{ .Values.explorer.service.type }}
+  {{- if (and (eq .Values.explorer.service.type "LoadBalancer") (not (empty .Values.explorer.service.loadBalancerIP))) }}
+  loadBalancerIP: {{ .Values.explorer.service.loadBalancerIP }}
   {{- end }}
-  {{- if (or (eq .Values.service.type "LoadBalancer") (eq .Values.service.type "NodePort")) }}
-  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy | quote }}
+  {{- if (or (eq .Values.explorer.service.type "LoadBalancer") (eq .Values.explorer.service.type "NodePort")) }}
+  externalTrafficPolicy: {{ .Values.explorer.service.externalTrafficPolicy | quote }}
   {{- end }}
   ports:
   - name: http
-    port: {{ .Values.service.port }}
+    port: {{ .Values.explorer.service.port }}
     targetPort: http
-    {{- if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort)))}}
-    nodePort: {{ .Values.service.nodePort }}
+    {{- if (and (eq .Values.explorer.service.type "NodePort") (not (empty .Values.explorer.service.nodePort)))}}
+    nodePort: {{ .Values.explorer.service.nodePort }}
     {{- end }}
   selector:
     app: {{ template "explorer.name" . }}
