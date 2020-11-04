@@ -208,15 +208,16 @@ hlf-kafka:
 ## Bitnami Odoo image version
 ## ref: https://hub.docker.com/r/bitnami/odoo/tags/
 ##
-image:
-  registry: docker.io
-  repository: hyperledger/explorer
-  tag: latest
+explorer:
+  image:
+    registry: docker.io
+    repository: hyperledger/explorer
+    tag: latest
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
+    pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -256,38 +257,38 @@ image:
 # smtpPassword:
 # smtpProtocol:
 
-externalDatabase:
+  externalDatabase:
 ## All of these values are only used when postgresql.enabled is set to false
   ## Database host
-  host: odoo-postgresql
+    host: odoo-postgresql
 
   ## non-root Username for Odoo database
-  user: hppoc
+    user: hppoc
 
   ## Database password
-  password: password
+    password: password
 
   ## Database port number
-  port: 5432
+    port: 5432
 
 ##
 ## PostgreSQL chart configuration
 ##
 ## https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
 ##
-postgresql:
-  enabled: true
+  postgresql:
+    enabled: true
   ## PostgreSQL password
   ## ref: https://hub.docker.com/_/postgres/
   ##
-  postgresqlUsername: hppoc
-  postgresqlPassword: password
+    postgresqlUsername: hppoc
+    postgresqlPassword: password
 
   ## Enable persistence using Persistent Volume Claims
   ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   ##
-  persistence:
-    enabled: true
+    persistence:
+      enabled: true
     ## If you want to reuse an existing claim, you can pass the name of the PVC using
     ## the existingClaim variable
     ##
@@ -301,8 +302,8 @@ postgresql:
     ##   GKE, AWS & OpenStack)
     ##
     # storageClass: "-"
-    accessMode: ReadWriteOnce
-    size: 8Gi
+      accessMode: ReadWriteOnce
+      size: 8Gi
 
 ## Kubernetes svc configuration
 ## For minikube, set this to NodePort, elsewhere use LoadBalancer
@@ -310,60 +311,60 @@ postgresql:
 ## Use serviceLoadBalancerIP to request a specific static IP,
 ## otherwise leave blank
 ##
-service:
+  service:
   ## Kubernetes svc type
   ## For minikube, set this to NodePort, elsewhere use LoadBalancer
   ##
-  type: LoadBalancer
+    type: LoadBalancer
   ## Use serviceLoadBalancerIP to request a specific static IP,
   ## otherwise leave blank
   ##
   # loadBalancerIP:
   # HTTP Port
-  port: 80
+    port: 80
   ## Use nodePort to requets some specific port when usin NodePort
   ##
-  nodePort: ""
+    nodePort: ""
 
   ## Enable client source IP preservation
   ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   ##
-  externalTrafficPolicy: Cluster
+    externalTrafficPolicy: Cluster
 
 ## Configure the ingress resource that allows you to access the
 ## Odoo installation. Set up the URL
 ## ref: http://kubernetes.io/docs/user-guide/ingress/
 ##
-ingress:
+  ingress:
   ## Set to true to enable ingress record generation
-  enabled: false
+    enabled: false
 
   ## The list of hostnames to be covered with this ingress record.
   ## Most likely this will be just one host, but in the event more hosts are needed, this is an array
-  hosts:
-  - name: odoo.local
-    path: /
+    hosts:
+    - name: odoo.local
+      path: /
 
     ## Set this to true in order to enable TLS on the ingress record
     ## A side effect of this will be that the backend odoo service will be connected at port 443
-    tls: false
+      tls: false
 
     ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
-    tlsSecret: odoo.local-tls
+      tlsSecret: odoo.local-tls
 
   ## Set this to true in order to add the corresponding annotations for cert-manager
-  certManager: false
+    certManager: false
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations, please see
   ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
   ##
   ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
   ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
-  annotations:
+    annotations:
   #  kubernetes.io/ingress.class: nginx
   #  kubernetes.io/tls-acme: true
 
-  secrets:
+    secrets:
   ## If you're providing your own certificates, please use this to add the certificates as secrets
   ## key and certificate should start with -----BEGIN CERTIFICATE----- or
   ## -----BEGIN RSA PRIVATE KEY-----
@@ -380,8 +381,8 @@ ingress:
 ## Enable persistence using Persistent Volume Claims
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
-persistence:
-  enabled: true
+  persistence:
+    enabled: true
   ## odoo data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -390,35 +391,35 @@ persistence:
   ##   GKE, AWS & OpenStack)
   ##
   # storageClass: "-"
-  accessMode: ReadWriteOnce
-  size: 8Gi
+    accessMode: ReadWriteOnce
+    size: 8Gi
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
-resources:
-  requests:
-    memory: 512Mi
-    cpu: 300m
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 300m
 
 ## Configure extra options for liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)
-livenessProbe:
-  enabled: false
-  initialDelaySeconds: 600
-  periodSeconds: 30
-  timeoutSeconds: 5
-  failureThreshold: 6
-  successThreshold: 1
-readinessProbe:
-  enabled: false
-  initialDelaySeconds: 30
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 6
-  successThreshold: 1
+  livenessProbe:
+    enabled: false
+    initialDelaySeconds: 600
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: false
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
 
 ## Affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ##
-affinity: {}
+  affinity: {}
