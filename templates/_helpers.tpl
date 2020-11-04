@@ -11,10 +11,10 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "explorer.fullname" -}}
-{{- if .Values.fullnameOverride -}}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- if .Values.explorer.fullnameOverride -}}
+{{- .Values.explorer.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- $name := default .Chart.Name .Values.explorer.nameOverride -}}
 {{- if contains $name .Release.Name -}}
 {{- .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -42,17 +42,17 @@ Create chart name and version as used by the chart label.
 Return the proper Odoo image name
 */}}
 {{- define "explorer.image" -}}
-{{- $registryName := .Values.image.registry -}}
-{{- $repositoryName := .Values.image.repository -}}
-{{- $tag := .Values.image.tag | toString -}}
+{{- $registryName := .Values.explorer.image.registry -}}
+{{- $repositoryName := .Values.explorer.image.repository -}}
+{{- $tag := .Values.explorer.image.tag | toString -}}
 {{/*
 Helm 2.11 supports the assignment of a value to a variable defined in a different scope,
 but Helm 2.9 and 2.10 doesn't support it, so we need to implement this if-else logic.
 Also, we can't use a single if because lazy evaluation is not an option
 */}}
-{{- if .Values.global }}
-    {{- if .Values.global.imageRegistry }}
-        {{- printf "%s/%s:%s" .Values.global.imageRegistry $repositoryName $tag -}}
+{{- if .Values.explorer.global }}
+    {{- if .Values.explorer.global.imageRegistry }}
+        {{- printf "%s/%s:%s" .Values.explorer.global.imageRegistry $repositoryName $tag -}}
     {{- else -}}
         {{- printf "%s/%s:%s" $registryName $repositoryName $tag -}}
     {{- end -}}
@@ -70,21 +70,21 @@ Helm 2.11 supports the assignment of a value to a variable defined in a differen
 but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else logic.
 Also, we can not use a single if because lazy evaluation is not an option
 */}}
-{{- if .Values.global }}
-{{- if .Values.global.imagePullSecrets }}
+{{- if .Values.explorer.global }}
+{{- if .Values.explorer.global.imagePullSecrets }}
 imagePullSecrets:
-{{- range .Values.global.imagePullSecrets }}
+{{- range .Values.explorer.global.imagePullSecrets }}
   - name: {{ . }}
 {{- end }}
-{{- else if .Values.image.pullSecrets }}
+{{- else if .Values.explorer.image.pullSecrets }}
 imagePullSecrets:
-{{- range .Values.image.pullSecrets }}
+{{- range .Values.explorer.image.pullSecrets }}
   - name: {{ . }}
 {{- end }}
 {{- end -}}
-{{- else if .Values.image.pullSecrets }}
+{{- else if .Values.explorer.image.pullSecrets }}
 imagePullSecrets:
-{{- range .Values.image.pullSecrets }}
+{{- range .Values.explorer.image.pullSecrets }}
   - name: {{ . }}
 {{- end }}
 {{- end -}}
@@ -98,28 +98,28 @@ Return  the proper Storage Class
 Helm 2.11 supports the assignment of a value to a variable defined in a different scope,
 but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else logic.
 */}}
-{{- if .Values.global -}}
-    {{- if .Values.global.storageClass -}}
-        {{- if (eq "-" .Values.global.storageClass) -}}
+{{- if .Values.explorer.global -}}
+    {{- if .Values.explorer.global.storageClass -}}
+        {{- if (eq "-" .explorer.Values.global.storageClass) -}}
             {{- printf "storageClassName: \"\"" -}}
         {{- else }}
-            {{- printf "storageClassName: %s" .Values.global.storageClass -}}
+            {{- printf "storageClassName: %s" .Values.explorer.global.storageClass -}}
         {{- end -}}
     {{- else -}}
-        {{- if .Values.persistence.storageClass -}}
-              {{- if (eq "-" .Values.persistence.storageClass) -}}
+        {{- if .Values.explorer.persistence.storageClass -}}
+              {{- if (eq "-" .Values.explorer.persistence.storageClass) -}}
                   {{- printf "storageClassName: \"\"" -}}
               {{- else }}
-                  {{- printf "storageClassName: %s" .Values.persistence.storageClass -}}
+                  {{- printf "storageClassName: %s" .Values.explorer.persistence.storageClass -}}
               {{- end -}}
         {{- end -}}
     {{- end -}}
 {{- else -}}
-    {{- if .Values.persistence.storageClass -}}
-        {{- if (eq "-" .Values.persistence.storageClass) -}}
+    {{- if .Values.explorer.persistence.storageClass -}}
+        {{- if (eq "-" .Values.explorer.persistence.storageClass) -}}
             {{- printf "storageClassName: \"\"" -}}
         {{- else }}
-            {{- printf "storageClassName: %s" .Values.persistence.storageClass -}}
+            {{- printf "storageClassName: %s" .Values.explorer.persistence.storageClass -}}
         {{- end -}}
     {{- end -}}
 {{- end -}}
