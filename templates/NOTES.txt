@@ -29,10 +29,10 @@
 
 {{- $port:=.Values.explorer.service.port | toString }}
   echo "explorer URL: http://$SERVICE_IP{{- if ne $port "80" }}:{{ .Values.explorer.service.port }}{{ end }}/"
-{{- else if contains "ClusterIP"  .Values.service.type }}
+{{- else if contains "ClusterIP"  .Values.explorer.service.type }}
 
   echo "explorer URL: http://127.0.0.1:8080/"
-  kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ template "explorer.fullname" . }} 8080:{{ .Values.service.port }}
+  kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ template "explorer.fullname" . }} 8080:{{ .Values.explorer.service.port }}
 
 {{- end }}
 {{- end }}
@@ -42,9 +42,9 @@
   
   echo Password: $(kubectl get secret --namespace {{ .Release.Namespace }} {{ template "explorer.fullname" . }} -o jsonpath="{.data.explorer-password}" | base64 --decode)
 
-{{- if and (contains "bitnami/" .Values.image.repository) (not (.Values.image.tag | toString | regexFind "-r\\d+$|sha256:")) }}
+{{- if and (contains "bitnami/" .Values.explorer.image.repository) (not (.Values.explorer.image.tag | toString | regexFind "-r\\d+$|sha256:")) }}
 
-WARNING: Rolling tag detected ({{ .Values.image.repository }}:{{ .Values.image.tag }}), please note that it is strongly recommended to avoid using rolling tags in a production environment.
+WARNING: Rolling tag detected ({{ .Values.image.explorer.repository }}:{{ .Values.image.tag }}), please note that it is strongly recommended to avoid using rolling tags in a production environment.
 +info https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/
 
 {{- end }}
