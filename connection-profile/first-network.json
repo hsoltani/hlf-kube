@@ -1,0 +1,186 @@
+{
+  "name": "common",
+  "version": "1.0",
+  "client": {
+    "organization": "AtlantisMSP",
+    "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "30000"
+
+                },
+                "orderer": "30000"
+            }
+        }
+  },
+  "channels": {
+        "common": {
+            "orderers": [
+                "orderer0.groeifabriek.nl",
+                "orderer1.groeifabriek.nl",
+                "orderer0.pivt.nl"
+            ],
+            "peers": {
+                "peer0.atlantis.com": {"chaincodeQuery": true},
+                "peer1.atlantis.com": {"chaincodeQuery": true},
+                "peer0.aptalkarga.tr": {"chaincodeQuery": true},
+                "peer1.aptalkarga.tr": {"chaincodeQuery": true},
+                "peer0.nevergreen.nl": {"chaincodeQuery": true},
+                "peer1.nevergreen.nl": {"chaincodeQuery": true}
+
+            }
+        }
+    },
+  "organizations": {
+    "KargaMSP": {
+      "mspid": "KargaMSP",
+      "cryptoPath": "/hlf-kube/crypto-config/peerOrganizations/aptalkarga.tr/users/Admin@aptalkarga.tr/msp",
+      "adminPrivateKey": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/aptalkarga.tr/users/Admin@aptalkarga.tr/msp/keystore/78a4ce7de7e6de9c50dbb73496643ccdc4c59673dbb7bfd43e33bcc9abe72be9_sk"
+      },
+      "signedCert": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/aptalkarga.tr/users/Admin@aptalkarga.tr/msp/signcerts/Admin@aptalkarga.tr-cert.pem"
+      },
+      "peers": [
+         "peer0.aptalkarga.tr",
+         "peer1.aptalkarga.tr"
+       ],
+       "certificateAuthorities": [
+                "ca-Karga"
+            ],
+       "connection": {
+   			"timeout": {
+   				"peer": {
+   					"endorser": "30000"
+   				},
+   				"orderer": "30000"
+   			}
+   		}
+
+
+    },
+    "AtlantisMSP": {
+      "mspid": "AtlantisMSP",
+      "peers": [
+        "peer0.atlantis.com",
+        "peer1.atlantis.com"
+       ],
+       "certificateAuthorities": [
+                "ca-Atlantis"
+            ],
+       "connection": {
+   			"timeout": {
+   				"peer": {
+   					"endorser": "30000"
+   				},
+   				"orderer": "30000"
+   			}
+   		},
+      "adminPrivateKey": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/atlantis.com/users/Admin@atlantis.com/msp/keystore/e796ee3f0479d7afc9908e94980854d12f024053ab60a4e3afeac516a736101e_sk"
+      },
+      "signedCert": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/atlantis.com/users/Admin@atlantis.com/msp/signcerts/Admin@atlantis.com-cert.pem"
+      }
+    },
+    "NevergreenMSP": {
+      "mspid": "NevergreenMSP",
+      "peers": [
+        "peer0.nevergreen.nl",
+        "peer1.nevergreen.nl"
+       ],
+       "certificateAuthorities": [
+                "ca-Nevergreen"
+            ],
+       "connection": {
+   			"timeout": {
+   				"peer": {
+   					"endorser": "30000"
+   				},
+   				"orderer": "30000"
+   			}
+   		},
+      "adminPrivateKey": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/nevergreen.nl/users/Admin@nevergreen.nl/msp/keystore/7d324789c02a61b2af3d69ccaa85a241de1fb1ee943e62716a2e385d54866293_sk"
+      },
+      "signedCert": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/nevergreen.nl/users/Admin@nevergreen.nl/msp/signcerts/Admin@nevergreen.nl-cert.pem"
+      }
+    },
+    "GroeifabriekMSP": {
+      "mspid": "GroeifabriekMSP",
+      "adminPrivateKey": {
+        "path": "/hlf-kube/crypto-config/ordererOrganizations/groeifabriek.nl/users/Admin@groeifabriek.nl/msp/keystore/5e872d292e429a2b427bf113e627b249f05b52765ddf7af45130b5c6beab296d_sk"
+      },
+      "signedCert": {
+        "path": "/hlf-kube/crypto-config/ordererOrganizations/example.com/users/Admin@groeifabriek.nl/msp/signcerts/Admin@groeifabriek.nl-cert.pem"
+      }
+    }
+
+  },
+  "peers": {
+    "peer0.aptalkarga.tr": {
+      "tlsCACerts": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/aptalkarga.tr/peers/peer0.aptalkarga.tr/tls/ca.crt"
+      },
+      "url": "grpcs://peer0.aptalkarga.tr:7051",
+      "eventUrl": "grpcs://peer0.aptalkarga.tr:7051",
+      "grpcs:Options": {
+        "ssl-target-name-override": "peer0.aptalkarga.tr",
+        "request-timeout": "120001"
+      }
+    },
+    "peer0.atlantis.com": {
+      "tlsCACerts": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/atlantis.com/peers/peer0.atlantis.com/tls/ca.crt"
+      },
+      "url": "grpcs://peer0.atlantis.com:7051",
+      "eventUrl": "grpcs://peer0.atlantis.com:7051",
+      "grpcs:Options": {
+        "ssl-target-name-override": "peer0.atlantis.com",
+        "request-timeout": "120001"
+      }
+    },
+    "peer0.nevergreen.nl": {
+      "tlsCACerts": {
+        "path": "/hlf-kube/crypto-config/peerOrganizations/nevergreen.nl/peers/peer0.nevergreen.nl/tls/ca.crt"
+      },
+      "url": "grpcs://peer0.nevergreen.nl:7051",
+      "eventUrl": "grpcs://peer0.nevergreen.nl:7051",
+      "grpcs:Options": {
+        "ssl-target-name-override": "peer0.nevergreen.nl",
+        "request-timeout": "120001"
+      }
+    }
+  },
+  "orderers": {
+    "orderer0.groeifabriek.nl": {
+      "tlsCACerts": {
+        "path": "/hlf-kube/crypto-config/ordererOrganizations/groeifabriek.nl/orderers/orderer0.groeifabriek.nl/tls/ca.crt"
+      },
+      "url": "grpcs://orderer0.groeifabriek.nl:7050"
+    },
+    "orderer1.groeifabriek.nl": {
+      "tlsCACerts": {
+        "path": "/hlf-kube/crypto-config/ordererOrganizations/groeifabriek.nl/orderers/orderer0.groeifabriek.nl/tls/ca.crt"
+      },
+      "url": "grpcs://orderer1.groeifabriek.nl:7050"
+    },
+    "orderer0.pivt.nl": {
+      "tlsCACerts": {
+        "path": "/hlf-kube/crypto-config/ordererOrganizations/pivt.nl/orderers/orderer0.pivt.nl/tls/ca.crt"
+      },
+      "url": "grpcs://orderer0.pivt.nl:7050"
+    }
+  },
+  "certificateAuthorities": {
+        "ca-Atlantis": {
+            "url": "https://hlf-ca--atlantis:7054",
+            "caName": "ca-Atlantis",
+            "registrar": {
+              "enrollId": "admin",
+              "enrollSecret": "adminpw"}
+        }
+    }
+
+} 
