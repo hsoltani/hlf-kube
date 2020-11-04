@@ -132,7 +132,7 @@ replication:
 
 ## PostgreSQL user (has superuser privileges if username is `postgres`)
 ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
-#postgresqlUsername: hppoc
+postgresqlUsername: hppoc
 
 ## PostgreSQL password
 ## ref: https://github.com/bitnami/bitnami-docker-postgresql/blob/master/README.md#setting-the-root-password-on-first-run
