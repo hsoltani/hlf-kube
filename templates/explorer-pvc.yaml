@@ -10,7 +10,7 @@ metadata:
     heritage: {{ .Release.Service | quote }}
 spec:
   accessModes:
-    - {{ .Values.persistence.accessMode | quote }}
+    - {{ .Values.explorer.persistence.accessMode | quote }}
   resources:
     requests:
       storage: {{ .Values.explorer.persistence.size | quote }}
